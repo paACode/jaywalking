@@ -48,6 +48,6 @@ class Player:
                     element.forward(STEP)
 
     def move_up(self):
-        self.y_coordinate += STEPe
+        self.y_coordinate += STEP
         self.character.move_up()
         self.boundaries.move_up()
