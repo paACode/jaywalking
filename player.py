@@ -12,42 +12,21 @@ STARTING_POSITION = (0, -SCREEN_HEIGHT_PX / 2 + CHARACTER_HEIGHT_PX / 2)
 DIRECTION_UP = 90
 
 
-class Player:
+class Player(turtle.Turtle):
 
     def __init__(self):
-        self.character = self.Character()
-        width_px, height_px = self.character.get_boundaries()
-        self.boundaries = self.Boundaries(width_px, height_px)
-        self.y_coordinate = STARTING_POSITION[1]
+        super().__init__()
+        self.penup()
+        self.shape("granny.gif")
+        self.width_px,  self.height_px = self.get_boundaries()
+        self.goto(STARTING_POSITION)
 
-    class Character(turtle.Turtle):
-        def __init__(self):
-            super().__init__()
-            self.filepath = "granny.gif"
-            self.shape("granny.gif")
-            self.img = Image.open(self.filepath)
-            self.penup()
-            self.goto(STARTING_POSITION)
-
-        def get_boundaries(self):
-            return self.img.width, self.img.height
-
-        def move_up(self):
-            self.setheading(DIRECTION_UP)
-            self.forward(STEP)
-
-    class Boundaries:
-        def __init__(self, width_px, height_px):
-            my_brush = permanentbrush.PermanentBrush()
-            self.rectangle = my_brush.draw_rectangle(STARTING_POSITION, width_px, height_px)
-
-        def move_up(self):
-            for line in self.rectangle:
-                for element in line:
-                    element.setheading(DIRECTION_UP)
-                    element.forward(STEP)
+    def get_boundaries(self):
+        filepath = "granny.gif"
+        img = Image.open(filepath)
+        return img.width, img.height
 
     def move_up(self):
-        self.y_coordinate += STEP
-        self.character.move_up()
-        self.boundaries.move_up()
+        self.setheading(DIRECTION_UP)
+        self.forward(STEP)
+
