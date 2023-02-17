@@ -30,8 +30,8 @@ def screen_refresh_needed(refresh_time_s=SCREEN_REFRESH_TIME_S):
 
 def latest_car_ahead_by(distance_px):
     latest_car_added = cars[len(cars) - 1]
-    print(screen.SCREEN_WIDTH_PX/2 - latest_car_added.xcor())
-    if screen.SCREEN_WIDTH_PX/2 - latest_car_added.xcor() > distance_px:
+    print(screen.SCREEN_WIDTH_PX / 2 - latest_car_added.xcor())
+    if screen.SCREEN_WIDTH_PX / 2 - latest_car_added.xcor() > distance_px:
         return True
     return False
 
@@ -65,15 +65,14 @@ if __name__ == '__main__':
         current_time = time.time()
         if screen_refresh_needed(refresh_time_s=SCREEN_REFRESH_TIME_S):
             screen_refresh_start_time = current_time
-            if latest_car_ahead_by(distance_px=car.CAR_WIDTH_PX):
+            if collision_with_car():
+                game_is_on = False
+            elif reached_other_side():
+                print("yippie")
+                game_is_on = False
+            elif latest_car_ahead_by(distance_px=car.CAR_WIDTH_PX):
                 add_car()
             move_cars()
             jaywalking_screen.update()
-
-        elif collision_with_car():
-            game_is_on = False
-        elif reached_other_side():
-            print("yippie")
-            game_is_on = False
 
 jaywalking_screen.exitonclick()
