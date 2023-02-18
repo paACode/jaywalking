@@ -30,7 +30,6 @@ def screen_refresh_needed(refresh_time_s=SCREEN_REFRESH_TIME_S):
 
 def latest_car_ahead_by(distance_px):
     latest_car_added = cars[len(cars) - 1]
-    print(screen.SCREEN_WIDTH_PX / 2 - latest_car_added.xcor())
     if screen.SCREEN_WIDTH_PX / 2 - latest_car_added.xcor() > distance_px:
         return True
     return False
@@ -44,12 +43,6 @@ def collision_with_car():
         y_collision_threshold = jaywalker.height_px / 2 + this_car.height_px / 2
         if delta_x < x_collision_threshold and delta_y < y_collision_threshold:
             return True
-    return False
-
-
-def reached_other_side():
-    if jaywalker.ycor() > screen.SCREEN_HEIGHT_PX / 2:
-        return True
     return False
 
 
@@ -67,12 +60,11 @@ if __name__ == '__main__':
             screen_refresh_start_time = current_time
             if collision_with_car():
                 game_is_on = False
-            elif reached_other_side():
+            elif jaywalker.reached_other_side():
                 print("yippie")
-                game_is_on = False
-            elif latest_car_ahead_by(distance_px=car.CAR_WIDTH_PX):
+                jaywalker.goto_start()
+            elif latest_car_ahead_by(distance_px=jaywalker.width_px * 3):  # Makes sure player can pass between 2 cars
                 add_car()
             move_cars()
             jaywalking_screen.update()
-
-jaywalking_screen.exitonclick()
+    jaywalking_screen.exitonclick()
