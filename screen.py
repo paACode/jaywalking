@@ -20,3 +20,4 @@ def turn_off_animation(screen):
 def add_custom_avatars(screen):
     """Only avatars added to screen can be used. Reason: Implementation of Turtle-Library"""
     screen.addshape("granny.gif")
+    screen.addshape("grandpa.gif")

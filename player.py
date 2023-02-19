@@ -4,7 +4,7 @@ from PIL import Image
 
 DEFAULT_TURTLE_SIZE_PX = 20
 DIRECTION_UP = 90
-AVATAR_FILEPATH = "granny.gif"
+AVATAR_FILEPATH = "grandpa.gif"
 
 
 class Player(turtle.Turtle):

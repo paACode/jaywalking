@@ -1,6 +1,7 @@
 import time
 import car
 import player
+import scoreboard
 import screen
 
 SCREEN_REFRESH_TIME_S = 0.02
@@ -49,6 +50,7 @@ if __name__ == '__main__':
     jaywalking_screen = screen.setup_screen(title="Jaywalking")
     jaywalker = player.Player()
     initialize_controls()
+    jaywalking_scoreboard = scoreboard.Scoreboard()
     cars = []
     add_car()  # Making sure there is already an instance of class car, when starting the game
     game_is_on = True
@@ -63,8 +65,10 @@ if __name__ == '__main__':
                 print("yippie")
                 jaywalker.goto_start()
                 car.Car.increase_speed()
+                jaywalking_scoreboard.increase_level()
             elif latest_car_ahead_by(distance_px=jaywalker.width_px * 3):  # Makes sure player can pass between 2 cars
                 add_car()
             move_all_cars()
             jaywalking_screen.update()
+    jaywalking_scoreboard.game_over()
     jaywalking_screen.exitonclick()
